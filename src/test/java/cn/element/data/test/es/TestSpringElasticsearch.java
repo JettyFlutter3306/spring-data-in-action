@@ -1,4 +1,4 @@
-package cn.element.learnspringdata;
+package cn.element.data.test.es;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 public class TestSpringElasticsearch {
 
     @Autowired
-    ElasticsearchRestTemplate esTemplate;
+    private ElasticsearchRestTemplate esTemplate;
 
     @Test
     public void test01() {

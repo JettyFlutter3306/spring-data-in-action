@@ -1,18 +1,23 @@
-package cn.element.learnspringdata;
+package cn.element.data.test.es;
 
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.DocWriteResponse;
+import org.elasticsearch.action.bulk.BulkItemResponse;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.support.replication.ReplicationResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.Strings;
-import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.VersionType;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
 import org.junit.Test;
@@ -196,18 +201,102 @@ public class TestESClient {
         if (shardInfo.getFailed() > 0) {
             for (ReplicationResponse.ShardInfo.Failure failure : shardInfo.getFailures()) {
                 String reason = failure.reason();
-                System.out.println(response);  //把每一个错误打印出来
+                System.out.println(reason);  //把每一个错误打印出来
             }
         }
     }
 
     /**
      * 测试更新数据
-     * 25讲
      */
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws IOException {
+        UpdateRequest request = new UpdateRequest("book", "4");
 
+        Map<String, Object> map = new HashMap<String, Object>(){{
+           put("name", "JavaScript权威指南");
+        }};
+        request.doc(map);
+
+        //========================可选参数=============================
+        request.timeout("1s");
+        request.retryOnConflict(3);  //重试次数
+
+        UpdateResponse response = esClient.update(request, RequestOptions.DEFAULT);
+
+        System.out.println(response.getId());
+        System.out.println(response.getIndex());
+
+        if (response.getResult() == DocWriteResponse.Result.CREATED) {
+            DocWriteResponse.Result result = response.getResult();
+            System.out.println("CREATED: " + result);
+        } else if (response.getResult() == DocWriteResponse.Result.UPDATED) {
+            DocWriteResponse.Result result = response.getResult();
+            System.out.println("UPDATED: " + result);
+        } else if (response.getResult() == DocWriteResponse.Result.DELETED) {
+            DocWriteResponse.Result result = response.getResult();
+            System.out.println("DELETED: " + result);
+        } else if (response.getResult() == DocWriteResponse.Result.NOOP) {
+            DocWriteResponse.Result result = response.getResult();
+            System.out.println("NOOP: " + result);
+        }
+    }
+
+    /**
+     * 测试删除方法
+     */
+    @Test
+    public void testDelete() throws IOException {
+        DeleteRequest request = new DeleteRequest("book", "5");
+
+        DeleteResponse response = esClient.delete(request, RequestOptions.DEFAULT);
+
+        System.out.println(response.getId());
+        System.out.println(response.getIndex());
+
+        DocWriteResponse.Result result = response.getResult();
+        System.out.println(result);
+    }
+
+    /**
+     * 测试批量操作
+     */
+    @Test
+    public void testBulk() throws IOException {
+        BulkRequest request = new BulkRequest();
+
+        //添加操作
+        request.add(new IndexRequest("demo").id("6").source(XContentType.JSON, "field", "1"));
+        request.add(new IndexRequest("demo").id("7").source(XContentType.JSON, "field", "1"));
+
+        //更新删除操作
+//        request.add(new UpdateRequest("demo", "6").doc(XContentType.JSON, "field", "3"));
+//        request.add(new DeleteRequest("demo").id("7"));
+
+        BulkResponse response = esClient.bulk(request, RequestOptions.DEFAULT);
+
+        for (BulkItemResponse itemResponse : response) {
+            DocWriteResponse writeResponse = itemResponse.getResponse();
+
+            switch (itemResponse.getOpType()) {
+                case INDEX:
+                    IndexResponse indexResponse = (IndexResponse) writeResponse;
+                    System.out.println("INDEX: " + indexResponse.getResult());
+                    break;
+                case CREATE:
+                    IndexResponse createResponse = (IndexResponse) writeResponse;
+                    System.out.println("CREATE: " + createResponse.getResult());
+                    break;
+                case DELETE:
+                    IndexResponse deleteResponse = (IndexResponse) writeResponse;
+                    System.out.println("DELETE: " + deleteResponse.getResult());
+                    break;
+                case UPDATE:
+                    IndexResponse updateResponse = (IndexResponse) writeResponse;
+                    System.out.println("UPDATE: " + updateResponse.getResult());
+                    break;
+            }
+        }
     }
 
 

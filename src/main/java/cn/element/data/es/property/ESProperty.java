@@ -1,4 +1,4 @@
-package cn.element.learnspringdata.property;
+package cn.element.data.es.property;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

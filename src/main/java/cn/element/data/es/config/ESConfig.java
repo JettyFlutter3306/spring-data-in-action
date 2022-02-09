@@ -1,6 +1,6 @@
-package cn.element.learnspringdata.config;
+package cn.element.data.es.config;
 
-import cn.element.learnspringdata.property.ESProperty;
+import cn.element.data.es.property.ESProperty;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
