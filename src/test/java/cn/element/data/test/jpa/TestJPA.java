@@ -15,6 +15,16 @@ public class TestJPA {
 
     /**
      * 测试保存操作
+     * Persistence              通过读取持久化单元名称,根据读取名称得到的配置创建持久化管理器工厂
+     * EntityTransaction        进行事务管理begin commit rollback
+     * EntityManagerFactory     这是一个工厂类,目的是为了创建EntityManager,对于这种工厂类,它的创建和销毁特别耗费资源
+     *                          一般在一个项目中为单例
+     * EntityManager            基于这个API可以实现数据库的CRUD
+     *
+     * persist(T)               保存
+     * find(Class, T)           查询
+     * merge(Class)             修改
+     * remove(T)                删除
      */
     @Test
     public void testSave() {

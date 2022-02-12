@@ -15,7 +15,7 @@
                       RESOURCE_LOCAL:指的是本地代码事务
     -->
     <persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
-        <!--JPA规范提供商，可以不写-->
+        <!--JPA规范提供商，可以不写,当项目中只导入了一个JPA实现时,此选项可以省略-->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!--指定Jpa注解的实体类型位置，可以不写-->
@@ -39,8 +39,9 @@
             <!--是否使用格式化输出SQL语句到控制台-->
             <property name="hibernate.format_sql" value="true"/>
 
-            <!--采用何种方式生成DDL语句，update表示检测实体类的映射配置与数据库表结构是否一致，不一致，则更新数据库。-->
-<!--            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+            <!--采用何种方式生成DDL语句，update表示检测实体类的映射配置与数据库表结构是否一致，不一致，则更新数据库。
+                其实就是自动建表-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 
             <!--连接池的配置,常用的还有阿里的-->
 <!--            <property name="hibernate.connection.provider_class" value="com.alibaba.druid.support.hibernate.DruidConnectionProvider"/>-->
