@@ -9,22 +9,8 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
 
-  #  elasticsearch:
-  #    rest:
-  #      uris: -101.43.19.137:9300
-
-  #  data:
-  #    mongodb:
-  #      host: 127.0.0.1
-  #      database: articledb
-  #      port: 27017
-
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     generate-ddl: true
-
-system:
-  elasticsearch:
-    hosts: -101.43.19.137:9200  # 多个结点用逗号分隔
