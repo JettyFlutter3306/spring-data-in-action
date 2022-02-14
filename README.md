@@ -385,12 +385,9 @@ boolean exists(Example<S> var1);				// 判断是否存在
 | IsNotNull,NotNull | findByAge(Is)NotNull                         | … where x.age not null                                       |
 | Like              | findByFirstnameLike                          | … where x.firstname like ?1                                  |
 | NotLike           | findByFirstnameNotLike                       | … where x.firstname not like ?1                              |
-| StartingWith      | findByFirstnameStartingWith                  | … where x.firstname like ?1<br/>(parameter bound with
-appended %) |
-| EndingWith        | findByFirstnameEndingWith                    | … where x.firstname like ?1<br/>(parameter bound with
-prepended %) |
-| Containing        | findByFirstnameContaining                    | … where x.firstname like ?1<br/>(parameter bound wrapped in
-%) |
+| StartingWith      | findByFirstnameStartingWith                  | … where x.firstname like ?1<br/>(parameter bound with appended %) |
+| EndingWith        | findByFirstnameEndingWith                    | … where x.firstname like ?1<br/>(parameter bound with prepended %) |
+| Containing        | findByFirstnameContaining                    | … where x.firstname like ?1<br/>(parameter bound wrapped in %) |
 | OrderBy           | findByAgeOrderByLastnameDesc                 | … where x.age = ?1 order by<br/>x.lastname desc              |
 | Not               | findByLastnameNot                            | … where x.lastname <> ?1                                     |
 | In                | findByAgeIn(Collection ages)                 | … where x.age in ?1                                          |
@@ -433,4 +430,138 @@ List<Article> findByCondition6(@Param("article") Article article);
 2",nativeQuery=true)
 List<User> findAllByTitleAndAuthor(String title,String author);
 ```
+
+### 2.3.8 多表查询
+
+#### **多表关系分析**
+
+![1644853068187](../vue-manage-spring/assets/image/multi-tables-analyze.png)
+
+#### 一对一关系
+
+数据环境（Article和ArticleData的一对一关系）
+
+声明类间关系
+在类中使用注解再声明表间关系
+声明主动放弃关系维护
+
+**@OneToOne**
+
+**mappedBy**:        **当前类在对方类中的属性名**
+**cascade**:             **选择级联操作**
+
+创建**Article**文章类
+
+```java
+@Entity
+@Table(name = "tb_article")
+public class Article {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String title;
+
+    private String author;
+
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @OneToOne(mappedBy = "article", cascade = CascadeType.PERSIST)
+    private ArticleData articleData;
+    
+    @OneToMany(mappedBy = "article")
+    private Set<Comment> comments = new HashSet<>(0);
+
+    @ManyToMany(mappedBy = "articles")
+    private Set<Type> types = new HashSet<>(0);
+    // 省略 getter setter toString 
+}
+```
+
+创建**ArticleData**文章详情类
+
+让这个实体来维护这个关系
+
+**@JoinColum**
+
+**name**:                    		  当前表中的外键名
+
+**referencedColumnName**:    指向的对方表中的主键名
+
+```java
+@Entity
+@Table(name = "tb_article_data")
+public class ArticleData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String content;
+
+    @OneToOne
+    @JoinColumn(name = "articleId", referencedColumnName = "id", unique = true)
+    private Article article;
+}
+```
+
+#### 一对多关系
+
+创建**Comment**(评论)类
+
+```java
+@Entity
+@Table(name = "tb_comment")
+public class Comment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String comment;
+
+    @ManyToOne
+    @JoinColumn(name = "articleId", referencedColumnName = "id")
+    private Article article;
+}
+```
+
+#### 多对多关系
+
+创建**Type**(类别)类
+
+**@JoinTable**
+
+**name**:	代表中间表名称
+
+**joinColumns**:	中间表的外键对应到当前表的主键名称
+
+**inverseJoinColumns**:	中间表的外键对应到的对方表的主键名称
+
+```java
+@Entity
+@Table(name = "tb_type")
+public class Type {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "tb_type_articles",
+        joinColumns = {@JoinColumn(name = "tid", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "aid", referencedColumnName = "id")}
+    )
+    private Set<Article> articles;
+}
+```
+
+
+
+## 2.4 Spring Data Redis
 

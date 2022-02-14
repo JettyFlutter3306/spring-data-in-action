@@ -24,7 +24,7 @@ public class Type {
     @ManyToMany
     @JoinTable(
         // 代表中间表名称
-        name = "",
+        name = "inner_type_article",
         // 中间表的外键对应到当前表的主键名称
         joinColumns = {@JoinColumn(name = "tid", referencedColumnName = "id")},
         // 中间表的外键对应到的对方表的主键名称
