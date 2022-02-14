@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ArticleDao extends JpaRepository<Article, Integer>, JpaSpecificationExecutor<Article> {
@@ -64,6 +63,12 @@ public interface ArticleDao extends JpaRepository<Article, Integer>, JpaSpecific
 
     @Query("from Article as a where a.title = :#{#article.title} and a.author = :#{#article.author}")
     List<Article> findByCondition6(@Param("article") Article article);
+
+    /**
+     * 本地SQL查询
+     */
+    @Query(value = "select * from `tb_article` as a where a.title = ?1 and a.author = ?2", nativeQuery = true)
+    List<Article> findByCondition7(String title, String author);
 
 
 }

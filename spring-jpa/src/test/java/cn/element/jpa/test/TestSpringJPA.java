@@ -177,6 +177,15 @@ public class TestSpringJPA {
         articles.forEach(System.out::println);
     }
 
+    @Test
+    public void testFindCondition7() {
+        String title = "测试文章";
+        String author = "洛必达";
+
+        List<Article> articles = articleDao.findByCondition7(title, author);
+        articles.forEach(System.out::println);
+    }
+
 
 
 
