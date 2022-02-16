@@ -35,7 +35,7 @@ import java.util.Map;
 public class TestESClient {
 
     @Autowired
-    RestHighLevelClient esClient;
+    private RestHighLevelClient esClient;
 
     /**
      * 测试获取数据
@@ -59,7 +59,7 @@ public class TestESClient {
      */
     @Test
     public void testConditionQuery() throws IOException {
-        GetRequest request = new GetRequest("book", "1");
+        GetRequest request = new GetRequest("book", "5");
 
         //构造参数,想要的字段和排除的字段
         String[] included = new String[]{"name", "description"};

@@ -32,7 +32,6 @@ public class TestHash {
     }
 
     /**
-     * 测试保存
      * put(key, hashKey, hashValue)         保存单个hash
      * putAll(key, hashMap)                 批量插入
      * putIfAbsent(key, hashKey, value)     不存在就插入
@@ -48,7 +47,6 @@ public class TestHash {
     }
 
     /**
-     * 测试获取
      * hasKey(key, hashKey)         判断是否存在
      * get(key, hashKey)            获取哈希键值
      * keys(key)                    获取哈希键集合
@@ -74,7 +72,7 @@ public class TestHash {
     }
 
     /**
-     * 测试删除hashKey
+     * delete(key, ...hashKeys)             删除hashKey
      * 当hash中的数据为空时,hash会被自动销毁
      */
     @Test

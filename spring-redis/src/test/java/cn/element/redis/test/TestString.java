@@ -63,7 +63,7 @@ public class TestString {
     }
 
     /**
-     * 使用HashMap批量插入
+     * multiSet(hashMap)        使用HashMap批量插入
      */
     @Test
     public void testMultiSet() {
@@ -78,7 +78,7 @@ public class TestString {
     }
 
     /**
-     * 测试追加
+     * append(key, value)       追加
      */
     @Test
     public void testAppend() {
@@ -86,7 +86,6 @@ public class TestString {
     }
 
     /**
-     * 测试获取键值
      * get(key)                 获取键值
      * get(key, start, end)     获取键值并截取[start, end]
      */
@@ -100,6 +99,7 @@ public class TestString {
 
     /**
      * 批量获取键值
+     * multiGet(collection)
      */
     @Test
     public void testMultiGet() {
@@ -110,7 +110,6 @@ public class TestString {
     }
 
     /**
-     * 测试自增
      * increment(key)           自增1
      * increment(key, delta)    自增指定大小
      * decrement(key)           自减1
