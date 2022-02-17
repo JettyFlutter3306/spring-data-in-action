@@ -435,7 +435,7 @@ List<User> findAllByTitleAndAuthor(String title,String author);
 
 #### **多表关系分析**
 
-![1644853068187](../vue-manage-spring/assets/image/multi-tables-analyze.png)
+![1644853068187](assets/image/multi-tables-analyze.png)
 
 #### 一对一关系
 
