@@ -33,4 +33,7 @@ public class Article {
     @Field(analyzer = "ik_max_word", searchAnalyzer = "ik_max_word", store = true, type = FieldType.Text)
     private String content;
 
+    @Field(store = true, type = FieldType.Integer)
+    private Integer hits;
+
 }

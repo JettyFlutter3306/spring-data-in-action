@@ -31,14 +31,8 @@ public class JedisConfig {
         redisTemplate.setConnectionFactory(factory);
 
         // 配置具体的序列化方式
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        serializer.setObjectMapper(objectMapper);
+        Jackson2JsonRedisSerializer<Object> jacksonSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-
         /*
          * key采用String序列化的方式
          * value序列化的方式采用JSON
@@ -46,12 +40,11 @@ public class JedisConfig {
          * hash的value序列化采用JSON
          */
         redisTemplate.setKeySerializer(stringRedisSerializer);
-        redisTemplate.setValueSerializer(serializer);
+        redisTemplate.setValueSerializer(jacksonSerializer);
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashValueSerializer(serializer);
+        redisTemplate.setHashValueSerializer(jacksonSerializer);
         redisTemplate.afterPropertiesSet();
 
         return redisTemplate;
     }
-
 }

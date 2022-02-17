@@ -560,8 +560,3 @@ public class Type {
     private Set<Article> articles;
 }
 ```
-
-
-
-## 2.4 Spring Data Redis
-

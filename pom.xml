@@ -8,13 +8,15 @@
 		<module>spring-mongo</module>
 		<module>spring-es</module>
 		<module>spring-redis</module>
-	</modules>
+        <module>spring-jdbc</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.8</version>
 		<relativePath/>
 	</parent>
+
 	<groupId>cn.element</groupId>
 	<artifactId>learn-spring-data</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
