@@ -100,6 +100,20 @@ public class TestSpringElasticsearch {
         articles.forEach(System.out::println);
     }
 
+    /**
+     * 方法命名规则查询
+     */
+    @Test
+    public void testFindByTitle() {
+        Sort sort = Sort.by(Sort.Order.desc("hits"));
+        Pageable page = PageRequest.of(1, 3, sort);
+        List<Article> articles = articleDao.findByTitle("Cloud", page);
+        articles.forEach(System.out::println);
+    }
+
+
+
+
 
 
 

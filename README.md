@@ -134,8 +134,8 @@ public class Article implements Serializable {
         <!--连接相关的一些配置，都是用hibernate的。-->
         <properties>
             <!--第一部分，连接数据库信息-->
-            <property name="hibernate.connection.driver_class" 				    							  value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" 							  							  value="jdbc:mysql://127.0.0.1:3306/data?characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/data?characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="root"/>
 
