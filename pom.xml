@@ -9,7 +9,7 @@
 		<module>spring-es</module>
 		<module>spring-redis</module>
         <module>spring-jdbc</module>
-    </modules>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -28,24 +28,28 @@
 	</properties>
 
 	<dependencies>
+		<!--lombok-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 
+		<!--spring-test-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
+		<!--hutool-->
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
 			<version>5.7.7</version>
 		</dependency>
 
+		<!--junit-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

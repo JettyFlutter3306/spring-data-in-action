@@ -110,12 +110,4 @@ public class TestSpringElasticsearch {
         List<Article> articles = articleDao.findByTitle("Cloud", page);
         articles.forEach(System.out::println);
     }
-
-
-
-
-
-
-
 }
-

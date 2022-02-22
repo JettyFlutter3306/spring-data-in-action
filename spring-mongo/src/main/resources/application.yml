@@ -2,8 +2,8 @@ spring:
   application:
     name: boot-demo-application
 
-    data:
-      mongodb:
-        host: 127.0.0.1
-        database: articledb
-        port: 27017
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: articledb

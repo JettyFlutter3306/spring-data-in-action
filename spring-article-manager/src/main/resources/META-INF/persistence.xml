@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--导入schema约束，此约束来源：复制hibernate-core:5.2.16.Final包下的/org/hibernate/jpa/persistence_2_0.xsd文件中的这一段出来即可。-->
+<persistence
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation=
+                "http://java.sun.com/xml/ns/persistence
+                 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+        version="2.0"
+>
+    <!--配置持久化单元（可以配置多个，名称不能重复）
+        name:用于指定持久化单元的名称
+        transaction-type:指定事务的类型。
+                      JTA:Java Transaction API
+                      RESOURCE_LOCAL:指的是本地代码事务
+    -->
+    <persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <!--JPA规范提供商，可以不写,当项目中只导入了一个JPA实现时,此选项可以省略-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!--指定Jpa注解的实体类型位置，可以不写-->
+<!--        <class>cn.element.jpa.pojo.Article</class>-->
+
+        <!--连接相关的一些配置，都是用hibernate的。-->
+        <properties>
+            <!--第一部分，连接数据库信息-->
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
+
+            <!--说明:数据库的方言，用于存放不同数据库之间的SQL语句差异。-->
+            <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>-->
+
+            <!--第二部分，hibernate的可选配置-->
+            <!--是否显示hibernate的生成的SQL语句-->
+            <property name="hibernate.show_sql" value="true"/>
+
+            <!--是否使用格式化输出SQL语句到控制台-->
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!--采用何种方式生成DDL语句，update表示检测实体类的映射配置与数据库表结构是否一致，不一致，则更新数据库。
+                其实就是自动建表-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!--连接池的配置,常用的还有阿里的-->
+            <!--            <property name="hibernate.connection.provider_class" value="com.alibaba.druid.support.hibernate.DruidConnectionProvider"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>

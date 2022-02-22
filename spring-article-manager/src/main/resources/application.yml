@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: article-manager-application
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/data?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: articledb
+
+  elasticsearch:
+    rest:
+      uris:
+        - 127.0.0.1:9200
