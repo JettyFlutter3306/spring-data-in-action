@@ -5,9 +5,9 @@ spring:
   application:
     name: boot-demo-application
 
-    elasticsearch:
-      rest:
-        uris: -127.0.0.1:9300
+  elasticsearch:
+    rest:
+      uris: http://127.0.0.1:9200
 
 system:
   elasticsearch:

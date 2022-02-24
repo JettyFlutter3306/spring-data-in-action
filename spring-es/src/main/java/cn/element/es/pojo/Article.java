@@ -35,5 +35,4 @@ public class Article {
 
     @Field(store = true, type = FieldType.Integer)
     private Integer hits;
-
 }
